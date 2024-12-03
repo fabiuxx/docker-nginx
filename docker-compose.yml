@@ -1,0 +1,19 @@
+name: test-nginx
+
+services:
+  nginx:
+    image: nginx-local:latest
+    build:
+      dockerfile: Dockerfile
+      context: .
+    container_name: nginx-local
+    network_mode: bridge
+    hostname: nginx-local
+    ports:
+      - "8080:80"
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://nginx-local:80/health"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+        
